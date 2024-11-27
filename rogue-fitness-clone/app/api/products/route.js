@@ -31,3 +31,35 @@ export async function POST(request) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
+
+export async function DELETE(request, { params }) {
+  try {
+    const { id } = params
+    await prisma.product.delete({
+      where: { id }
+    })
+    return NextResponse.json({ message: 'Product deleted successfully' })
+  } catch (error) {
+    console.error('Error deleting product:', error)
+    return NextResponse.json(
+      { error: 'Failed to delete product' },
+      { status: 500 }
+    )
+  }
+}
+
+export async function PUT(request, { params }) {
+  const { id } = params
+  const data = await request.json()
+  
+  const updatedProduct = await prisma.product.update({
+    where: { id },
+    data: {
+      name: data.name,
+      price: parseFloat(data.price),
+      category: data.category,
+      image: data.image,
+      badge: data.badge
+    }
+  })
+}

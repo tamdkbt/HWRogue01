@@ -22,6 +22,7 @@ const productCategories = [
 export default function AdminPage() {
   const [products, setProducts] = useState([])
   const [formData, setFormData] = useState({
+    id: '',
     name: '',
     price: '',
     category: '',
@@ -39,17 +40,59 @@ export default function AdminPage() {
     setProducts(data)
   }
 
+  const handleEdit = (product) => {
+    setFormData({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      category: product.category,
+      image: product.image,
+      badge: product.badge || ''
+    })
+  }
+
+  const handleDelete = async (id) => {
+    if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+      const url = `/api/products/${id}`
+      console.log('Delete URL:', url)
+
+      try {
+        const res = await fetch(url, {
+          method: 'DELETE',
+        })
+
+        console.log('Response status:', res.status)
+        console.log('Response ok:', res.ok)
+
+        if (!res.ok) {
+          const errorData = await res.json()
+          console.error('Error response:', errorData)
+          throw new Error('Failed to delete product')
+        }
+
+        await fetchProducts()
+        alert('Xóa sản phẩm thành công!')
+      } catch (error) {
+        console.error('Error deleting product:', error)
+        alert('Có lỗi xảy ra khi xóa sản phẩm!')
+      }
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const res = await fetch('/api/products', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
+    const method = formData.id ? 'PUT' : 'POST'
+    const url = formData.id ? `/api/products/${formData.id}` : '/api/products'
+
+    const res = await fetch(url, {
+      method,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
     })
+
     if (res.ok) {
       setFormData({
+        id: '',
         name: '',
         price: '',
         category: '',
@@ -69,7 +112,9 @@ export default function AdminPage() {
         
         {/* Add Product Form */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Thêm Sản Phẩm Mới</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            {formData.id ? 'Cập Nhật Sản Phẩm' : 'Thêm Sản Phẩm Mới'}
+          </h2>
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
@@ -137,7 +182,7 @@ export default function AdminPage() {
               type="submit" 
               className="mt-8 w-full md:w-auto px-8 py-4 bg-blue-700 hover:bg-blue-800 text-white text-lg font-semibold rounded-md transition duration-200 ease-in-out transform hover:-translate-y-1"
             >
-              Thêm Sản Phẩm
+              {formData.id ? 'Cập Nhật Sản Phẩm' : 'Thêm Sản Phẩm'}
             </button>
           </form>
         </div>
@@ -166,6 +211,20 @@ export default function AdminPage() {
                 <p className="text-base font-medium text-gray-700 bg-gray-100 inline-block px-4 py-2 rounded-full">
                   {product.category}
                 </p>
+                <div className="mt-4 flex space-x-4">
+                  <button 
+                    onClick={() => handleEdit(product)}
+                    className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md"
+                  >
+                    Chỉnh sửa
+                  </button>
+                  <button 
+                    onClick={() => handleDelete(product.id)}
+                    className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
+                  >
+                    Xóa
+                  </button>
+                </div>
               </div>
             </div>
           ))}
