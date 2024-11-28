@@ -28,7 +28,7 @@ export default function FeaturedCategories() {
 
   return (
     <section className="py-16 bg-[#4A4A4A]">
-      <div className="container mx-auto px-4">
+      <div className="w-[95%] max-w-[2160px] mx-auto px-4">
         <h2 className="text-3xl font-bold text-white mb-8">ƯU ĐÃI NỔI BẬT</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -6,7 +6,7 @@ export default function Header() {
     <header className="fixed w-full z-50">
       {/* Top Promo Bar */}
       <div className="bg-[#8B0000] text-white py-2">
-        <div className="container mx-auto px-4">
+        <div className="w-[95%] max-w-[2160px] mx-auto px-4">
           <div className="flex justify-between items-center text-sm">
             <span>FREESHIP CODE: AURA2024</span>
             <div className="flex space-x-4">
@@ -19,7 +19,7 @@ export default function Header() {
 
       {/* Main Header */}
       <div className="bg-[#4A4A4A] border-b border-[#6E6E6E]">
-        <div className="container mx-auto px-4">
+        <div className="w-[95%] max-w-[2160px] mx-auto px-4">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <a href="/" className="text-[#FFD700] text-4xl font-bold">AURA</a>
@@ -62,7 +62,7 @@ export default function Header() {
 
       {/* Navigation Menu */}
       <nav className="bg-[#4A4A4A] shadow-lg">
-        <div className="container mx-auto px-4">
+        <div className="w-[95%] max-w-[2160px] mx-auto px-4">
           <ul className="flex justify-between items-center h-12">
             {[
               'Trang Chủ',

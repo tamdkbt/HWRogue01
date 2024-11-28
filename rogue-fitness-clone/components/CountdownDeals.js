@@ -120,7 +120,7 @@ export default function CountdownDeals() {
 
   return (
     <section className="py-8 bg-[#4A4A4A]">
-      <div className="container mx-auto px-4">
+      <div className="w-[95%] max-w-[2160px] mx-auto px-4">
         <h2 className="text-xl font-bold text-white mb-6">ƯU ĐÃI NỔI BẬT</h2>
         
         <div className="overflow-x-auto">

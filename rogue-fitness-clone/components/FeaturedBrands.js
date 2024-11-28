@@ -10,7 +10,7 @@ export default function FeaturedBrands() {
 
   return (
     <section className="py-12 bg-[#4A4A4A]">
-      <div className="container mx-auto px-4">
+      <div className="w-[95%] max-w-[2160px] mx-auto px-4">
         <h2 className="text-3xl font-bold text-white mb-8 text-center">THƯƠNG HIỆU NỔI BẬT</h2>
         
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">

@@ -22,7 +22,7 @@ export default function ProductGrid() {
 
   return (
     <section className="py-16 bg-[#4A4A4A]">
-      <div className="container mx-auto px-4">
+      <div className="w-[95%] max-w-[2160px] mx-auto px-4">
         {/* Header & Controls */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
           <h2 className="text-3xl font-bold text-white mb-4 md:mb-0">SẢN PHẨM NỔI BẬT</h2>

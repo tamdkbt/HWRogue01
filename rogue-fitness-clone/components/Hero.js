@@ -22,25 +22,38 @@ export default function Hero() {
   ]
 
   return (
-    <section className="relative bg-black flex justify-center">
+    <section className="relative bg-black flex justify-center pb-12">
       <div className="
-        w-[80%]          // Chiều rộng 98% màn hình
-        mx-auto          // Căn giữa
-        px-2            // Giảm padding để banner rộng hơn
-        relative overflow-hidden
-        h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]
+        w-[95%]          // Tăng từ 80% lên 95% để mở rộng ra hai bên
+        container
+        max-w-[2160px]   // Tăng max-width để container rộng hơn
+        mx-auto          
+        px-2            
+        relative 
+        overflow-hidden
+        -mt-6           
+        mb-6           
+        h-[400px]        
+        sm:h-[500px]      
+        md:h-[600px]     
+        lg:h-[700px]     
+        xl:h-[800px]    
       ">
         {slides.map((slide, index) => (
           <div
             key={index}
-            className={`absolute w-full h-full transition-opacity duration-500 ${
-              currentSlide === index ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`
+              absolute 
+              w-full 
+              h-full 
+              transition-opacity duration-500
+              ${currentSlide === index ? 'opacity-100' : 'opacity-0'}
+            `}
           >
             <img
               src={slide.image}
               alt={slide.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-center"
               style={{ objectPosition: slide.bgPosition }}
             />
             <div className="absolute inset-0 bg-black/30" />
