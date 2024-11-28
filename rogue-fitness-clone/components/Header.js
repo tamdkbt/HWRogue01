@@ -21,7 +21,7 @@ export default function Header() {
       <div className="border-b border-[#6E6E6E]">
         <div className="w-[95%] max-w-[2160px] mx-auto px-4">
           <div className="flex justify-between items-center h-20">
-            <a href="/" className="text-[#FFD700] text-4xl font-bold">AURA</a>
+            <a href="/" className="text-[#FFD700] text-6xl font-bold">AURA</a>
 
             <div className="hidden md:block w-1/3">
               <div className="relative">

@@ -7,14 +7,16 @@ export default function Hero() {
   const slides = [
     {
       image: "/images/banner/banner1.jpg",
-      title: "THIẾT BỊ TẬP LUYỆN 2024",
+      titleMain: "THIẾT BỊ TẬP LUYỆN ",
+      titleYear: "2024",
       subtitle: "Bộ sưu tập mới nhất đã có mặt",
       buttonText: "KHÁM PHÁ NGAY",
       bgPosition: "center"
     },
     {
       image: "/images/banner/banner2.jpg",
-      title: "KHUYẾN MÃI THÁNG 11",
+      titleMain: "KHUYẾN MÃI THÁNG ",
+      titleMonth: "11",
       subtitle: "Giảm giá đến 30% cho tất cả phụ kiện",
       buttonText: "XEM NGAY",
       bgPosition: "center"
@@ -58,14 +60,17 @@ export default function Hero() {
             >
               <img
                 src={slide.image}
-                alt={slide.title}
+                alt={slide.titleMain}
                 className="w-full h-full object-cover"
                 style={{ objectPosition: slide.bgPosition }}
               />
               <div className="absolute inset-0 bg-black/30" />
               
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
-                <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">{slide.title}</h1>
+                <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">
+                  <span className="text-[#FFD700]">{slide.titleMain}</span>
+                  <span className="text-white">{slide.titleYear || ` ${slide.titleMonth}`}</span>
+                </h1>
                 <p className="text-lg md:text-xl mb-6 font-light">{slide.subtitle}</p>
                 <button className="bg-[#FFD700] text-black px-8 py-3 font-bold hover:bg-[#FFC700] transition-colors">
                   {slide.buttonText}
