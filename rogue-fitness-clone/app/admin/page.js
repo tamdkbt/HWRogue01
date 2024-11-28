@@ -35,47 +35,53 @@ export default function AdminPage() {
   }, [])
 
   const fetchProducts = async () => {
-    const res = await fetch('/api/products')
-    const data = await res.json()
-    setProducts(data)
+    try {
+      const response = await fetch('/api/products')
+      if (!response.ok) {
+        throw new Error('Failed to fetch products')
+      }
+      const data = await response.json()
+      setProducts(data)
+    } catch (error) {
+      console.error('Error fetching products:', error)
+    }
   }
 
-  const handleEdit = (product) => {
-    setFormData({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      category: product.category,
-      image: product.image,
-      badge: product.badge || ''
-    })
+  const handleEdit = async (product) => {
+    try {
+      const response = await fetch(`/api/products/${product.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(product),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to update product')
+      }
+
+      // Refresh danh sách sản phẩm sau khi cập nhật
+      fetchProducts()
+    } catch (error) {
+      console.error('Error updating product:', error)
+    }
   }
 
   const handleDelete = async (id) => {
-    if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
-      const url = `/api/products/${id}`
-      console.log('Delete URL:', url)
-
-      try {
-        const res = await fetch(url, {
-          method: 'DELETE',
-        })
-
-        console.log('Response status:', res.status)
-        console.log('Response ok:', res.ok)
-
-        if (!res.ok) {
-          const errorData = await res.json()
-          console.error('Error response:', errorData)
-          throw new Error('Failed to delete product')
-        }
-
-        await fetchProducts()
-        alert('Xóa sản phẩm thành công!')
-      } catch (error) {
-        console.error('Error deleting product:', error)
-        alert('Có lỗi xảy ra khi xóa sản phẩm!')
+    try {
+      const response = await fetch(`/api/products/${id}`, {
+        method: 'DELETE',
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to delete product')
       }
+
+      // Refresh danh sách sản phẩm sau khi xóa
+      fetchProducts()
+    } catch (error) {
+      console.error('Error deleting product:', error)
     }
   }
 
