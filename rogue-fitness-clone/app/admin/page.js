@@ -106,43 +106,43 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-[#6E6E6E]">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-white mb-8 text-center">
+        <h1 className="text-4xl font-bold text-white mb-8 text-center tracking-wide">
           Quản Lý Sản Phẩm
         </h1>
         
-        {/* Form Container */}
-        <div className="bg-[#4A4A4A] rounded-lg shadow-lg p-8 mb-8">
-          <h2 className="text-2xl font-bold text-white mb-6">
+        {/* Form Container - Updated styling */}
+        <div className="bg-[#4A4A4A] rounded-lg shadow-xl p-8 mb-8 border border-[#A9A9A9]">
+          <h2 className="text-2xl font-bold text-[#FFD700] mb-6 tracking-wide">
             {formData.id ? 'Cập Nhật Sản Phẩm' : 'Thêm Sản Phẩm Mới'}
           </h2>
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-base font-semibold text-gray-900">Tên sản phẩm</label>
+                <label className="text-lg font-semibold text-white">Tên sản phẩm</label>
                 <input
                   type="text"
                   placeholder="Nhập tên sản phẩm"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-4 py-3 text-white bg-[#A9A9A9] border-[#FFD700] rounded-md focus:ring-2 focus:ring-[#FFD700] focus:border-[#FFD700] transition"
+                  className="w-full px-4 py-3 bg-white text-gray-800 rounded-md focus:ring-2 focus:ring-[#FFD700] border-2 border-transparent focus:border-[#FFD700] transition-all duration-300 placeholder-gray-500"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Giá</label>
+                <label className="text-lg font-semibold text-white">Giá</label>
                 <input
                   type="number"
                   placeholder="Nhập giá"
                   value={formData.price}
                   onChange={(e) => setFormData({...formData, price: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                  className="w-full px-4 py-3 bg-white text-gray-800 rounded-md focus:ring-2 focus:ring-[#FFD700] border-2 border-transparent focus:border-[#FFD700] transition-all duration-300 placeholder-gray-500"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Danh mục</label>
+                <label className="text-lg font-semibold text-white">Danh mục</label>
                 <select
                   value={formData.category}
                   onChange={(e) => setFormData({...formData, category: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                  className="w-full px-4 py-3 bg-white text-gray-800 rounded-md focus:ring-2 focus:ring-[#FFD700] border-2 border-transparent focus:border-[#FFD700] transition-all duration-300"
                 >
                   <option value="">Chọn danh mục</option>
                   {productCategories.map((category) => (
@@ -153,21 +153,21 @@ export default function AdminPage() {
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">URL Hình ảnh</label>
+                <label className="text-lg font-semibold text-white">URL Hình ảnh</label>
                 <input
                   type="text"
                   placeholder="Nhập URL hình ảnh"
                   value={formData.image}
                   onChange={(e) => setFormData({...formData, image: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                  className="w-full px-4 py-3 bg-white text-gray-800 rounded-md focus:ring-2 focus:ring-[#FFD700] border-2 border-transparent focus:border-[#FFD700] transition-all duration-300 placeholder-gray-500"
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">Badge</label>
+                <label className="text-lg font-semibold text-white">Badge</label>
                 <select
                   value={formData.badge}
                   onChange={(e) => setFormData({...formData, badge: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                  className="w-full px-4 py-3 bg-white text-gray-800 rounded-md focus:ring-2 focus:ring-[#FFD700] border-2 border-transparent focus:border-[#FFD700] transition-all duration-300"
                 >
                   <option value="">Chọn badge</option>
                   {commonBadges.map((badge) => (
@@ -180,17 +180,17 @@ export default function AdminPage() {
             </div>
             <button 
               type="submit" 
-              className="mt-8 w-full md:w-auto px-8 py-4 bg-[#FFD700] hover:bg-[#B29700] text-[#4A4A4A] text-lg font-semibold rounded-md transition duration-200 ease-in-out transform hover:-translate-y-1"
+              className="mt-8 w-full md:w-auto px-8 py-4 bg-[#FFD700] hover:bg-[#B29700] text-[#4A4A4A] text-lg font-semibold rounded-md transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
             >
               {formData.id ? 'Cập Nhật Sản Phẩm' : 'Thêm Sản Phẩm'}
             </button>
           </form>
         </div>
 
-        {/* Products Grid */}
+        {/* Products Grid - Updated styling */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((product) => (
-            <div key={product.id} className="bg-[#4A4A4A] rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
+            <div key={product.id} className="bg-[#4A4A4A] rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 border border-[#A9A9A9] transform hover:-translate-y-1">
               <div className="relative">
                 <img 
                   src={product.image} 
@@ -204,23 +204,23 @@ export default function AdminPage() {
                 )}
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-3">{product.name}</h3>
-                <p className="text-3xl font-bold text-[#FFD700] mb-3">
+                <h3 className="text-xl font-bold text-white mb-3 tracking-wide">{product.name}</h3>
+                <p className="text-3xl font-bold text-[#FFD700] mb-3 tracking-tight">
                   {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
                 </p>
-                <p className="text-base font-medium text-white bg-[#6E6E6E] inline-block px-4 py-2 rounded-full">
+                <p className="text-base font-medium text-white bg-[#6E6E6E] inline-block px-4 py-2 rounded-full shadow-md">
                   {product.category}
                 </p>
                 <div className="mt-4 flex space-x-4">
                   <button 
                     onClick={() => handleEdit(product)}
-                    className="px-4 py-2 bg-[#20B2AA] hover:bg-[#1A8F8A] text-white rounded-md"
+                    className="px-4 py-2 bg-[#20B2AA] hover:bg-[#1A8F8A] text-white rounded-md transition-all duration-300 hover:shadow-lg flex-1"
                   >
                     Chỉnh sửa
                   </button>
                   <button 
                     onClick={() => handleDelete(product.id)}
-                    className="px-4 py-2 bg-[#8B0000] hover:bg-[#660000] text-white rounded-md"
+                    className="px-4 py-2 bg-[#8B0000] hover:bg-[#660000] text-white rounded-md transition-all duration-300 hover:shadow-lg flex-1"
                   >
                     Xóa
                   </button>

@@ -7,9 +7,8 @@ module.exports = {
   ],
   theme: {
     extend: {
-      aspectRatio: {
-        'w-1': '1',
-        'h-1': '1',
+      fontFamily: {
+        sans: ['Roboto', 'sans-serif'],
       },
     },
   },

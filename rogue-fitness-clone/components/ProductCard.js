@@ -14,11 +14,11 @@ export default function ProductCard({ product }) {
         )}
       </div>
       <div className="p-6">
-        <h3 className="text-xl font-bold text-white mb-3">{product.name}</h3>
-        <p className="text-3xl font-bold text-[#FFD700] mb-3">
+        <h3 className="text-xl font-bold mb-3 tracking-tight text-white">{product.name}</h3>
+        <p className="text-3xl font-bold mb-3 tracking-tight text-[#FFD700]">
           {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
         </p>
-        <p className="text-base font-medium text-white bg-[#4A4A4A] inline-block px-4 py-2 rounded-full">
+        <p className="text-sm font-medium text-white bg-[#4A4A4A] inline-block px-4 py-2 rounded-full">
           {product.category}
         </p>
       </div>

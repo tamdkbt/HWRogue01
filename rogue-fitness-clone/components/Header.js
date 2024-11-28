@@ -3,8 +3,8 @@ import { useState } from 'react'
 
 export default function Header() {
   return (
-    <header className="fixed w-full z-50">
-      {/* Top Promo Bar */}
+    <header className="bg-[#4A4A4A]">
+      {/* Top Promo Bar - Chỉ hiển thị 1 lần */}
       <div className="bg-[#8B0000] text-white py-2">
         <div className="w-[95%] max-w-[2160px] mx-auto px-4">
           <div className="flex justify-between items-center text-sm">
@@ -17,30 +17,28 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Main Header */}
-      <div className="bg-[#4A4A4A] border-b border-[#6E6E6E]">
+      {/* Main Header - Logo, Search, Actions */}
+      <div className="border-b border-[#6E6E6E]">
         <div className="w-[95%] max-w-[2160px] mx-auto px-4">
           <div className="flex justify-between items-center h-20">
-            {/* Logo */}
             <a href="/" className="text-[#FFD700] text-4xl font-bold">AURA</a>
 
-            {/* Search Bar */}
             <div className="hidden md:block w-1/3">
               <div className="relative">
                 <input
                   type="text"
                   placeholder="Tìm kiếm sản phẩm..."
-                  className="w-full px-4 py-2 bg-[#6E6E6E] text-white rounded-sm focus:ring-2 focus:ring-[#FFD700]"
+                  className="w-full px-4 py-3 bg-white text-gray-800 rounded-md 
+                  focus:ring-2 focus:ring-[#FFD700] text-base placeholder-gray-500"
                 />
                 <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </button>
               </div>
             </div>
 
-            {/* Right Actions */}
             <div className="flex items-center space-x-6">
               <a href="#" className="text-white hover:text-[#FFD700]">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,7 +61,7 @@ export default function Header() {
       {/* Navigation Menu */}
       <nav className="bg-[#4A4A4A] shadow-lg">
         <div className="w-[95%] max-w-[2160px] mx-auto px-4">
-          <ul className="flex justify-between items-center h-12">
+          <ul className="flex justify-between items-center h-14">
             {[
               'Trang Chủ',
               'Sản Phẩm Mới',
@@ -77,7 +75,8 @@ export default function Header() {
               <li key={item}>
                 <a
                   href="#"
-                  className="text-white hover:text-[#FFD700] text-sm font-medium px-4 py-2 hover:bg-[#6E6E6E] transition-colors duration-200"
+                  className="text-white hover:text-[#FFD700] text-base font-medium px-6 py-3 
+                  hover:bg-[#6E6E6E] transition-colors duration-200 rounded-md"
                 >
                   {item}
                 </a>

@@ -22,16 +22,16 @@ export default function Hero() {
   ]
 
   return (
-    <section className="relative bg-black flex justify-center pb-12">
+    <section className="relative bg-black flex justify-center pb-16">
       <div className="
-        w-[95%]          // Tăng từ 80% lên 95% để mở rộng ra hai bên
+        w-[85%]          // Tăng từ 80% lên 95% để mở rộng ra hai bên
         container
         max-w-[2160px]   // Tăng max-width để container rộng hơn
         mx-auto          
         px-2            
         relative 
         overflow-hidden
-        -mt-6           
+        -mt-0           
         mb-6           
         h-[400px]        
         sm:h-[500px]      
@@ -59,8 +59,8 @@ export default function Hero() {
             <div className="absolute inset-0 bg-black/30" />
             
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">{slide.title}</h1>
-              <p className="text-lg md:text-xl mb-6">{slide.subtitle}</p>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight">{slide.title}</h1>
+            <p className="text-lg md:text-xl mb-6 font-light">{slide.subtitle}</p>
               <button className="bg-[#FFD700] text-black px-8 py-3 font-bold hover:bg-[#FFC700] transition-colors">
                 {slide.buttonText}
               </button>

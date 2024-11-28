@@ -32,7 +32,8 @@ export default function ProductGrid() {
             <select 
               value={activeCategory}
               onChange={(e) => setActiveCategory(e.target.value)}
-              className="bg-[#6E6E6E] text-white px-4 py-2 rounded-sm focus:ring-2 focus:ring-[#FFD700]"
+              className="bg-white text-gray-800 px-4 py-3 rounded-md text-base
+              focus:ring-2 focus:ring-[#FFD700] border-2 border-transparent"
             >
               <option value="all">Tất cả sản phẩm</option>
               <option value="dumbbells">Tạ tay</option>
@@ -45,7 +46,8 @@ export default function ProductGrid() {
             <select 
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="bg-[#6E6E6E] text-white px-4 py-2 rounded-sm focus:ring-2 focus:ring-[#FFD700]"
+              className="bg-white text-gray-800 px-4 py-3 rounded-md text-base
+              focus:ring-2 focus:ring-[#FFD700] border-2 border-transparent"
             >
               <option value="featured">Nổi bật</option>
               <option value="newest">Mới nhất</option>
