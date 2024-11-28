@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 
-const CountdownTimer = ({ endTime }) => {
+const CountdownTimer = ({ endTime, progress: dealProgress }) => {
   const [timeLeft, setTimeLeft] = useState({
     hours: 0,
     minutes: 0,
@@ -56,17 +56,22 @@ const CountdownTimer = ({ endTime }) => {
   }
 
   return (
-    <div className="flex items-center gap-3 mt-4">
-      <div className="font-mono text-green-400 text-sm min-w-[75px]">
-        {String(timeLeft.hours).padStart(2, '0')}:
-        {String(timeLeft.minutes).padStart(2, '0')}:
-        {String(timeLeft.seconds).padStart(2, '0')}
-      </div>
-      <div className="h-2.5 flex-1 bg-gray-700 rounded-full">
-        <div
-          style={{ width: `${progress}%` }}
-          className="h-full rounded-full bg-green-400 transition-all duration-300"
-        />
+    <div className="mt-2">
+      <div className="flex items-center space-x-2">
+        <div className="text-xs font-mono text-white whitespace-nowrap">
+          {String(timeLeft.hours).padStart(2, '0')}:
+          {String(timeLeft.minutes).padStart(2, '0')}:
+          {String(timeLeft.seconds).padStart(2, '0')}
+        </div>
+
+        <div className="flex-1">
+          <div className="h-2 rounded bg-gray-300">
+            <div
+              style={{ width: `${progress}%` }}
+              className="h-full rounded bg-green-500 transition-all duration-1000"
+            />
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -78,57 +83,67 @@ export default function CountdownDeals() {
       id: 1,
       name: "Rogue Echo Bike V3.0",
       image: "/images/products/echo-bike.jpg",
+      // Thời gian kết thúc: 7 ngày từ hiện tại
       endTime: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+      progress: 75
     },
     {
       id: 2,
       name: "Rogue SML-2C Squat Stand",
       image: "/images/products/squat-stand.jpg",
+      // Thời gian kết thúc: 3 ngày từ hiện tại
       endTime: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(),
+      progress: 60
     },
     {
       id: 3,
       name: "Rogue Echo Weight Vest",
       image: "/images/products/weight-vest.jpg",
+      // Thời gian kết thúc: 5 ngày từ hiện tại
       endTime: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+      progress: 37
     },
     {
       id: 4,
       name: "Rogue Manta Ray Adjustable Bench",
       image: "/images/products/bench.jpg",
       endTime: "2024-03-12T23:59:59",
+      progress: 85
     },
     {
       id: 5,
       name: "The Milo",
       image: "/images/products/milo.jpg",
       endTime: "2024-03-10T23:59:59",
+      progress: 45
     },
     {
       id: 6,
       name: "Rogue OSO Barbell Collars 2.0",
       image: "/images/products/collars.jpg",
       endTime: "2024-03-11T23:59:59",
+      progress: 90
     },
     {
       id: 7,
       name: "Rogue Curl Bar",
       image: "/images/products/curl-bar.jpg",
       endTime: "2024-03-09T23:59:59",
+      progress: 55
     }
   ]
 
   return (
-    <section className="py-8 bg-[#4A4A4A]">
-      <div className="w-[95%] max-w-[2160px] mx-auto px-4">
-        <h2 className="text-xl font-bold text-white mb-6">ƯU ĐÃI NỔI BẬT</h2>
+    <section className="py-6 bg-[#4A4A4A]">
+      <div className="container mx-auto px-4">
+        <h2 className="text-lg font-bold text-white mb-4">ƯU ĐÃI NỔI BẬT</h2>
         
         <div className="overflow-x-auto">
-          <div className="flex space-x-6 min-w-max">
+          <div className="flex space-x-4 min-w-max">
             {deals.map((deal) => (
               <div 
                 key={deal.id}
-                className="w-80 bg-[#2A2A2A] rounded-lg overflow-hidden flex-shrink-0 hover:shadow-xl transition-all duration-300"
+                className="w-72 bg-[#6E6E6E] rounded-lg overflow-hidden flex-shrink-0 hover:shadow-lg transition-shadow"
               >
                 <div className="relative aspect-w-4 aspect-h-3">
                   <img
@@ -142,12 +157,12 @@ export default function CountdownDeals() {
                   />
                 </div>
                 
-                <div className="p-5">
-                  <h3 className="text-white text-base font-medium mb-4 truncate">
+                <div className="p-3 space-y-2">
+                  <h3 className="text-white text-sm font-medium truncate">
                     {deal.name}
                   </h3>
                   
-                  <CountdownTimer endTime={deal.endTime} />
+                  <CountdownTimer endTime={deal.endTime} progress={deal.progress} />
                 </div>
               </div>
             ))}

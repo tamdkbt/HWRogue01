@@ -59,31 +59,37 @@ export default function Header() {
       </div>
 
       {/* Navigation Menu */}
-      <nav className="bg-[#4A4A4A] shadow-lg">
+      <nav className="bg-[#4A4A4A]">
+        {/* Thêm background màu xám nhạt phía trên */}
+        <div className="h-1 bg-[#A9A9A9]"></div>
+        
         <div className="w-[95%] max-w-[2160px] mx-auto px-4">
           <ul className="flex justify-between items-center h-14">
             {[
-              'Trang Chủ',
-              'Sản Phẩm Mới',
-              'Tạ Tay',
-              'Thanh Tạ',
+              'Bars & Plates',
+              'Thiết Bị Tập Luyện',
+              'Tăng Cường Thể Lực',
               'Phụ Kiện',
-              'Giá Kệ',
-              'Blog',
-              'Liên Hệ'
+              'Combo Thiết Bị',
+              'Trang Phục',
+              'Giày',
+              'Hoàn Thiện Dự Án'
             ].map((item) => (
               <li key={item}>
                 <a
                   href="#"
-                  className="text-white hover:text-[#FFD700] text-base font-medium px-6 py-3 
-                  hover:bg-[#6E6E6E] transition-colors duration-200 rounded-md"
+                  className="text-white hover:text-[#FFD700] text-sm font-medium px-4 py-3 
+                  hover:bg-[#6E6E6E] transition-colors duration-200 rounded-md whitespace-nowrap"
                 >
-                  {item}
+                  <span>{item}</span>
                 </a>
               </li>
             ))}
           </ul>
         </div>
+
+        {/* Thêm background màu xám nhạt phía dưới */}
+        <div className="h-1 bg-[#4A4A4A]"></div>
       </nav>
     </header>
   )

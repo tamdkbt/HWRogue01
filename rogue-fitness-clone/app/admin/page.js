@@ -39,47 +39,6 @@ const flattenedCategories = Object.entries(productCategories).reduce((acc, [main
   return acc;
 }, []);
 
-// Cấu trúc mới cho productImages - Thay thế phần cũ
-const productImages = {
-  dumbbells: [
-    { value: '/images/products/dumbbells/product1.jpg', label: 'Tạ Tay 1' },
-    { value: '/images/products/dumbbells/product2.jpg', label: 'Tạ Tay 2' },
-    { value: '/images/products/dumbbells/product3.jpg', label: 'Tạ Tay 3' }
-  ],
-  barbells: [
-    { value: '/images/products/barbells/product1.jpg', label: 'Thanh Tạ 1' },
-    { value: '/images/products/barbells/product2.jpg', label: 'Thanh Tạ 2' }
-  ],
-  rack: [
-    { value: '/images/products/rack/product1.jpg', label: 'Rack 1' },
-    { value: '/images/products/rack/product2.jpg', label: 'Rack 2' }
-  ],
-  accessories: [
-    { value: '/images/products/accessories/product1.jpg', label: 'Phụ Kiện 1' },
-    { value: '/images/products/accessories/product2.jpg', label: 'Phụ Kiện 2' }
-  ],
-  clothing: [
-    { value: '/images/products/clothing/product1.jpg', label: 'Trang Phục 1' },
-    { value: '/images/products/clothing/product2.jpg', label: 'Trang Phục 2' }
-  ],
-  shoes: [
-    { value: '/images/products/shoes/product1.jpg', label: 'Giày 1' },
-    { value: '/images/products/shoes/product2.jpg', label: 'Giày 2' }
-  ],
-  supplements: [
-    { value: '/images/products/supplements/product1.jpg', label: 'Thực Phẩm 1' },
-    { value: '/images/products/supplements/product2.jpg', label: 'Thực Phẩm 2' }
-  ],
-  'local-food': [
-    { value: '/images/products/local-food/product1.jpg', label: 'Đặc Sản 1' },
-    { value: '/images/products/local-food/product2.jpg', label: 'Đặc Sản 2' }
-  ],
-  'aura-supply': [
-    { value: '/images/products/aura-supply/product1.jpg', label: 'Aura Supply 1' },
-    { value: '/images/products/aura-supply/product2.jpg', label: 'Aura Supply 2' }
-  ]
-};
-
 export default function AdminPage() {
   const [products, setProducts] = useState([])
   const [formData, setFormData] = useState({
@@ -90,7 +49,6 @@ export default function AdminPage() {
     image: '',
     badge: ''
   })
-  const [selectedImageCategory, setSelectedImageCategory] = useState('');
 
   useEffect(() => {
     fetchProducts()
@@ -221,55 +179,15 @@ export default function AdminPage() {
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="text-lg font-semibold text-white">Danh mục hình ảnh</label>
-                <select
-                  value={selectedImageCategory}
-                  onChange={(e) => setSelectedImageCategory(e.target.value)}
-                  className="w-full px-4 py-3 bg-white text-gray-800 rounded-md 
-                  focus:ring-2 focus:ring-[#FFD700] border-2 border-transparent 
-                  focus:border-[#FFD700] transition-all duration-300"
-                >
-                  <option value="">Chọn danh mục hình ảnh</option>
-                  {Object.keys(productImages).map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </select>
+                <label className="text-lg font-semibold text-white">URL Hình ảnh</label>
+                <input
+                  type="text"
+                  placeholder="Nhập URL hình ảnh"
+                  value={formData.image}
+                  onChange={(e) => setFormData({...formData, image: e.target.value})}
+                  className="w-full px-4 py-3 bg-white text-gray-800 rounded-md focus:ring-2 focus:ring-[#FFD700] border-2 border-transparent focus:border-[#FFD700] transition-all duration-300 placeholder-gray-500"
+                />
               </div>
-
-              {/* Select hình ảnh cụ thể - chỉ hiện khi đã chọn danh mục */}
-              {selectedImageCategory && (
-                <div className="space-y-2 mt-4">
-                  <label className="text-lg font-semibold text-white">Hình ảnh sản phẩm</label>
-                  <select
-                    value={formData.image}
-                    onChange={(e) => setFormData({...formData, image: e.target.value})}
-                    className="w-full px-4 py-3 bg-white text-gray-800 rounded-md 
-                    focus:ring-2 focus:ring-[#FFD700] border-2 border-transparent 
-                    focus:border-[#FFD700] transition-all duration-300"
-                  >
-                    <option value="">Chọn hình ảnh</option>
-                    {productImages[selectedImageCategory].map((img) => (
-                      <option key={img.value} value={img.value}>
-                        {img.label}
-                      </option>
-                    ))}
-                  </select>
-
-                  {/* Preview hình ảnh */}
-                  {formData.image && (
-                    <div className="mt-2">
-                      <img 
-                        src={formData.image} 
-                        alt="Preview" 
-                        className="w-32 h-32 object-cover rounded-md border-2 border-[#FFD700]"
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
-
               <div className="space-y-2">
                 <label className="text-lg font-semibold text-white">Badge</label>
                 <select
