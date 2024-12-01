@@ -2,8 +2,9 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
-export default function Header() {
-  const [isShopOpen, setIsShopOpen] = useState(false)
+const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isShopOpen, setIsShopOpen] = useState(false);
 
   const menuItems = {
     "Bars & Plates": [],
@@ -25,11 +26,11 @@ export default function Header() {
 
   return (
     <header className="bg-[#4A4A4A]">
-      {/* Top Promo Bar - Chỉ hiển thị 1 lần */}
+      {/* Top Promo Bar */}
       <div className="bg-[#8B0000] text-white py-2">
         <div className="w-[95%] max-w-[2160px] mx-auto px-4">
-          <div className="flex justify-between items-center text-sm">
-            <span>FREESHIP CODE: AURA2024</span>
+          <div className="flex flex-col md:flex-row justify-between items-center text-sm">
+            <span className="mb-2 md:mb-0">FREESHIP CODE: AURA2024</span>
             <div className="flex space-x-4">
               <a href="#" className="hover:text-[#FFD700]">Theo dõi đơn hàng</a>
               <a href="#" className="hover:text-[#FFD700]">Trợ giúp</a>
@@ -38,49 +39,55 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Main Header - Logo, Search, Actions */}
+      {/* Main Header */}
       <div className="border-b border-[#6E6E6E]">
         <div className="w-[95%] max-w-[2160px] mx-auto px-4">
           <div className="flex justify-between items-center h-16">
-            <Link href="/" className="text-[#FFD700] text-5xl font-bold">AURA</Link>
+            <Link href="/" className="text-[#FFD700] text-3xl md:text-5xl font-bold">AURA</Link>
 
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden text-white"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            </button>
+
+            {/* Search Bar - Hidden on Mobile */}
             <div className="hidden md:block w-1/3">
               <div className="relative">
                 <input
                   type="text"
                   placeholder="Tìm kiếm sản phẩm..."
-                  className="w-full px-3 py-2 bg-white text-gray-800 rounded-md 
-                  focus:ring-2 focus:ring-[#FFD700] text-sm placeholder-gray-500"
+                  className="w-full px-3 py-2 bg-white text-gray-800 rounded-md"
                 />
-                <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                  <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </button>
               </div>
             </div>
 
-            <div className="flex items-center space-x-6">
-              <a href="#" className="text-white hover:text-[#FFD700]">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </a>
-              <a href="#" className="text-white hover:text-[#FFD700] relative">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                </svg>
-                <span className="absolute -top-2 -right-2 bg-[#8B0000] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  0
-                </span>
-              </a>
+            {/* User Actions */}
+            <div className="hidden md:flex items-center space-x-6">
+              {/* User and Cart icons */}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Navigation Menu */}
-      <nav className="bg-[#4A4A4A] relative">
+      {/* Mobile Menu */}
+      <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}>
+        <div className="px-4 pt-2 pb-3 space-y-1">
+          <input
+            type="text"
+            placeholder="Tìm kiếm sản phẩm..."
+            className="w-full px-3 py-2 bg-white text-gray-800 rounded-md mb-3"
+          />
+          {/* Mobile navigation items */}
+        </div>
+      </div>
+
+      {/* Desktop Navigation */}
+      <nav className="hidden md:block bg-[#4A4A4A] relative">
         <div className="h-1 bg-[#A9A9A9]"></div>
         
         <div className="w-[95%] max-w-[2160px] mx-auto px-4">
@@ -183,5 +190,7 @@ export default function Header() {
         <div className="h-1 bg-[#4A4A4A]"></div>
       </nav>
     </header>
-  )
-} 
+  );
+};
+
+export default Header; 

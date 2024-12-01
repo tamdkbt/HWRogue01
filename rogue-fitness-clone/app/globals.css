@@ -270,3 +270,45 @@ body {
 .animate-slideUp {
   animation: slideUp 0.8s ease-out forwards;
 }
+
+@layer base {
+  html {
+    @apply text-base;
+  }
+
+  @screen sm {
+    html {
+      @apply text-[14px];
+    }
+  }
+
+  @screen md {
+    html {
+      @apply text-[16px];
+    }
+  }
+
+  @screen lg {
+    html {
+      @apply text-[16px];
+    }
+  }
+}
+
+/* Add responsive container classes */
+.container-fluid {
+  @apply w-[95%] max-w-[2160px] mx-auto px-4;
+}
+
+/* Add responsive typography classes */
+.h1-responsive {
+  @apply text-3xl md:text-4xl lg:text-5xl font-bold;
+}
+
+.h2-responsive {
+  @apply text-2xl md:text-3xl lg:text-4xl font-bold;
+}
+
+.text-responsive {
+  @apply text-sm md:text-base lg:text-lg;
+}

@@ -284,6 +284,8 @@ export default function AdminPage() {
                     <Image 
                       src={product.image} 
                       alt={product.name}
+                      width={64}
+                      height={64}
                       className="w-16 h-16 object-cover rounded cursor-pointer hover:opacity-80"
                       onClick={() => handleImageClick(product.image)}
                     />
@@ -340,6 +342,8 @@ export default function AdminPage() {
               <Image
                 src={selectedImage}
                 alt="Product preview"
+                width={1000}
+                height={1000}
                 className="max-w-full max-h-[80vh] object-contain"
               />
             </div>

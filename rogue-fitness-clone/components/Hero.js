@@ -76,11 +76,15 @@ export default function Hero() {
 
   return (
     <section className="relative bg-[#A9A9A9]">
-      <div className="flex w-full">
-        <div className="w-1/6 bg-[#A9A9A9]"></div>
+      {/* Main hero section */}
+      <div className="flex flex-col lg:flex-row w-full">
+        {/* Side padding - hidden on mobile */}
+        <div className="hidden lg:block w-1/6 bg-[#A9A9A9]"></div>
 
-        <div className="w-[120%] max-w-[2560px] mx-auto">
-          <div className="h-[800px] relative overflow-hidden">
+        {/* Main content */}
+        <div className="w-full lg:w-[120%] max-w-[2560px] mx-auto">
+          {/* Slider container */}
+          <div className="h-[400px] md:h-[600px] lg:h-[800px] relative overflow-hidden">
             {slides.map((slide, index) => (
               <div
                 key={index}
@@ -93,10 +97,16 @@ export default function Hero() {
                 <Image
                   src={slide.image}
                   alt={slide.titleMain}
-                  width={500}
-                  height={300}
+                  width={2560}
+                  height={1440}
                   className="w-full h-full object-cover"
-                  priority={true}
+                  priority={index === 0}
+                  quality={75}
+                  sizes="100vw"
+                  style={{
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                  }}
                 />
                 <div className="absolute inset-0 bg-black/30" />
                 
@@ -135,7 +145,8 @@ export default function Hero() {
               </div>
             ))}
 
-            <div className="absolute bottom-20 right-10 flex items-center space-x-4 z-20">
+            {/* Slider controls - adjusted for mobile */}
+            <div className="absolute bottom-10 md:bottom-20 right-4 md:right-10 flex items-center space-x-2 md:space-x-4 z-20">
               <button
                 onClick={togglePause}
                 className="bg-black/50 hover:bg-black/70 text-white p-3 rounded-full transition-all duration-300"
@@ -184,7 +195,8 @@ export default function Hero() {
               </button>
             </div>
 
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-3 z-20">
+            {/* Slider dots - adjusted for mobile */}
+            <div className="absolute bottom-2 md:bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 md:space-x-3 z-20">
               {slides.map((_, index) => (
                 <button
                   key={index}
@@ -202,47 +214,53 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="bg-black h-[120px] flex items-center justify-center">
+          {/* Promotion banner */}
+          <div className="bg-black py-6 lg:h-[120px] flex items-center justify-center px-4">
             <div className="max-w-[1200px] w-full flex flex-col items-center justify-center gap-4">
-              <div className="flex items-center justify-center gap-4">
-                <span className="text-2xl font-bold text-white tracking-wider">
+              {/* Title section */}
+              <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 text-center md:text-left">
+                <span className="text-xl md:text-2xl font-bold text-white tracking-wider">
                   LỄ HỘI
                   <span className="text-[#FFD700]"> CUỐI NĂM</span>
                 </span>
-                <span className="text-white mx-4">|</span>
-                <div className="flex items-center gap-4">
+                <span className="hidden md:block text-white mx-4">|</span>
+                <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-sm md:text-base">
                   <span className="text-red-600 font-bold">GIẢM SỐC</span>
-                  <span className="text-white">+</span>
+                  <span className="hidden md:block text-white">+</span>
                   <span className="text-red-600 font-bold">MUA NHIỀU GIẢM NHIỀU</span>
-                  <span className="text-white">+</span>
+                  <span className="hidden md:block text-white">+</span>
                   <span className="text-red-600 font-bold">QUÀ TẶNG HẤP DẪN</span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-4 w-full max-w-[600px]">
-                <span className="text-2xl text-[#FFD700] mr-2">🎁</span>
-                <span className="text-white mx-4">|</span>
-                <div className="flex items-center gap-2 flex-1">
-                  <span className="text-white text-sm whitespace-nowrap">
+              {/* Email subscription section */}
+              <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 w-full max-w-[600px]">
+                <span className="text-xl md:text-2xl text-[#FFD700]">🎁</span>
+                <span className="hidden md:block text-white">|</span>
+                <div className="flex flex-col md:flex-row items-center gap-2 w-full">
+                  <span className="text-white text-xs md:text-sm text-center md:text-left">
                     Đừng bỏ lỡ cơ hội săn deal khủng - Nhận ngay thông báo khi có ưu đãi mới!
                   </span>
-                  <input
-                    type="email"
-                    placeholder="Nhập email của bạn"
-                    className="flex-1 px-4 py-2 text-sm bg-white/10 text-white rounded-sm
-                    focus:outline-none focus:ring-1 focus:ring-[#FFD700] placeholder-gray-400"
-                  />
-                  <button className="px-6 py-2 bg-red-600 text-white text-sm font-medium rounded-sm
-                    hover:bg-red-700 transition-all duration-300 whitespace-nowrap">
-                    Đăng ký
-                  </button>
+                  <div className="flex w-full md:w-auto gap-2">
+                    <input
+                      type="email"
+                      placeholder="Nhập email của bạn"
+                      className="flex-1 px-3 py-2 text-sm bg-white/10 text-white rounded-sm
+                      focus:outline-none focus:ring-1 focus:ring-[#FFD700] placeholder-gray-400"
+                    />
+                    <button className="px-4 md:px-6 py-2 bg-red-600 text-white text-sm font-medium rounded-sm
+                      hover:bg-red-700 transition-all duration-300 whitespace-nowrap">
+                      Đăng ký
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="w-1/6 bg-[#A9A9A9]"></div>
+        {/* Side padding - hidden on mobile */}
+        <div className="hidden lg:block w-1/6 bg-[#A9A9A9]"></div>
       </div>
     </section>
   )
