@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -55,7 +56,7 @@ export default function Hero() {
       }, 5000)
       return () => clearInterval(timer)
     }
-  }, [isPaused])
+  }, [isPaused, slides.length])
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length)
@@ -89,11 +90,13 @@ export default function Hero() {
                   ${currentSlide === index ? 'opacity-100 z-10' : 'opacity-0 z-0'}
                 `}
               >
-                <img
+                <Image
                   src={slide.image}
                   alt={slide.titleMain}
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                  style={{ objectPosition: slide.bgPosition }}
+                  width={500}
+                  height={300}
+                  className="w-full h-full object-cover"
+                  priority={true}
                 />
                 <div className="absolute inset-0 bg-black/30" />
                 

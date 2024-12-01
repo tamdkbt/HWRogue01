@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Link from 'next/link'
 
 export default function Header() {
   const [isShopOpen, setIsShopOpen] = useState(false)
@@ -41,7 +42,7 @@ export default function Header() {
       <div className="border-b border-[#6E6E6E]">
         <div className="w-[95%] max-w-[2160px] mx-auto px-4">
           <div className="flex justify-between items-center h-16">
-            <a href="/" className="text-[#FFD700] text-5xl font-bold">AURA</a>
+            <Link href="/" className="text-[#FFD700] text-5xl font-bold">AURA</Link>
 
             <div className="hidden md:block w-1/3">
               <div className="relative">
