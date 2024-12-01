@@ -134,38 +134,49 @@ export default function CountdownDeals() {
   ]
 
   return (
-    <section className="py-6 bg-[#4A4A4A]">
-      <div className="container mx-auto px-4">
-        <h2 className="text-lg font-bold text-white mb-4">ƯU ĐÃI NỔI BẬT</h2>
-        
-        <div className="overflow-x-auto">
-          <div className="flex space-x-4 min-w-max">
-            {deals.map((deal) => (
-              <div 
-                key={deal.id}
-                className="w-72 bg-[#6E6E6E] rounded-lg overflow-hidden flex-shrink-0 hover:shadow-lg transition-shadow"
-              >
-                <div className="relative aspect-w-4 aspect-h-3">
-                  <img
-                    src={deal.image}
-                    alt={deal.name}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = "https://via.placeholder.com/400x300";
-                    }}
-                  />
-                </div>
-                
-                <div className="p-3 space-y-2">
-                  <h3 className="text-white text-sm font-medium truncate">
-                    {deal.name}
-                  </h3>
+    <section className="py-20 bg-[#A9A9A9]">
+      <div className="w-[95%] max-w-[2160px] mx-auto px-4">
+        <div className="overflow-x-auto -mx-[17vw]">
+          <div className="px-[22vw]">
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-black tracking-wide mb-2">
+                ƯU ĐÃI NỔI BẬT
+              </h2>
+              <div className="w-full h-[1px] bg-black opacity-10"></div>
+            </div>
+            
+            <div className="flex space-x-4">
+              {deals.map((deal) => (
+                <div 
+                  key={deal.id}
+                  className="w-[220px] bg-[#6E6E6E] rounded-lg overflow-hidden flex-shrink-0 hover:shadow-lg transition-shadow"
+                >
+                  <div className="relative aspect-w-4 aspect-h-3 group">
+                    <img
+                      src={deal.image}
+                      alt={deal.name}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "https://via.placeholder.com/400x300";
+                      }}
+                    />
+                    <div className="absolute top-3 right-3">
+                      <span className="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                        HOT DEAL
+                      </span>
+                    </div>
+                  </div>
                   
-                  <CountdownTimer endTime={deal.endTime} progress={deal.progress} />
+                  <div className="p-4">
+                    <h3 className="text-white text-sm font-semibold line-clamp-2 min-h-[40px]">
+                      {deal.name}
+                    </h3>
+                    <CountdownTimer endTime={deal.endTime} progress={deal.progress} />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

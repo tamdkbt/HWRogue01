@@ -21,7 +21,7 @@ export default function ProductGrid() {
   }, [])
 
   return (
-    <section className="py-16 bg-[#4A4A4A]">
+    <section className="py-16 bg-[#A9A9A9]">
       <div className="w-[95%] max-w-[2160px] mx-auto px-4">
         {/* Header & Controls */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">

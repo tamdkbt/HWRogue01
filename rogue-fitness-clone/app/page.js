@@ -1,15 +1,15 @@
 import Hero from '@/components/Hero'
 import CountdownDeals from '@/components/CountdownDeals'
 import FeaturedCategories from '@/components/FeaturedCategories'
-import ProductGrid from '@/components/ProductGrid'
 
 export default function Home() {
   return (
-    <>
+    <main className="bg-[#A9A9A9]">
       <Hero />
-      <CountdownDeals />
-      <FeaturedCategories />
-      <ProductGrid />
-    </>
+      <div>
+        <CountdownDeals />
+        <FeaturedCategories />
+      </div>
+    </main>
   )
 }
