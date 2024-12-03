@@ -312,3 +312,12 @@ body {
 .text-responsive {
   @apply text-sm md:text-base lg:text-lg;
 }
+
+/* Canvas cursor styles */
+canvas {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
