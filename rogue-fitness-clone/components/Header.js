@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,7 +44,15 @@ const Header = () => {
       <div className="border-b border-[#6E6E6E]">
         <div className="w-[95%] max-w-[2160px] mx-auto px-4">
           <div className="flex justify-between items-center h-16">
-            <Link href="/" className="text-[#FFD700] text-3xl md:text-5xl font-bold">AURA</Link>
+            <Link href="/" className="relative w-32 h-12">
+              <Image
+                src="/images/admin-logo.png"
+                alt="AURA Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </Link>
 
             {/* Mobile Menu Button */}
             <button 
