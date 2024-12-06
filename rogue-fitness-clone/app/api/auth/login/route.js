@@ -7,7 +7,9 @@ export async function POST(request) {
     const { email, password } = await request.json()
     console.log('=== LOGIN ATTEMPT ===')
     console.log('Email received:', email)
-    console.log('Password received:', password)
+    console.log('Raw password received:', password)
+    console.log('Password length:', password.length)
+    console.log('Password type:', typeof password)
 
     const user = await prisma.user.findUnique({
       where: { email }
@@ -26,10 +28,14 @@ export async function POST(request) {
       id: user.id,
       email: user.email,
       role: user.role,
-      hashedPassword: user.password
+      hashedPassword: user.password,
+      passwordLength: user.password.length
     })
 
     console.log('Attempting password comparison...')
+    console.log('Input password:', password)
+    console.log('Stored hash:', user.password)
+    
     const passwordMatch = await bcrypt.compare(password, user.password)
     console.log('Password match result:', passwordMatch)
 
