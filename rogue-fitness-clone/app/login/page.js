@@ -14,23 +14,31 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    e.stopPropagation()
     setIsLoading(true)
+    setError('')
+
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ 
+          email: email.trim(), 
+          password: password.trim() 
+        }),
       })
 
+      const data = await res.json()
+
       if (!res.ok) {
-        const error = await res.json()
-        throw new Error(error.message)
+        throw new Error(data.message || 'Đăng nhập thất bại')
       }
 
       router.push('/admin')
     } catch (error) {
+      console.error('Login error:', error)
       setError(error.message)
     } finally {
       setIsLoading(false)
