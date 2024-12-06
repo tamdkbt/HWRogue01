@@ -6,12 +6,13 @@ export async function POST(request) {
   try {
     const { email, password } = await request.json()
     console.log('=== LOGIN ATTEMPT ===')
-    console.log('Email received:', email)
-    console.log('Raw password received:', password)
+    console.log('Email:', email)
+    console.log('Password:', password)
 
     const user = await prisma.user.findUnique({
       where: { email }
     })
+    console.log('Found user:', user ? 'Yes' : 'No')
 
     if (!user) {
       return NextResponse.json(
@@ -21,6 +22,7 @@ export async function POST(request) {
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password)
+    console.log('Password match:', passwordMatch)
 
     if (!passwordMatch) {
       return NextResponse.json(
@@ -47,8 +49,7 @@ export async function POST(request) {
     return response
 
   } catch (error) {
-    console.error('=== LOGIN ERROR ===')
-    console.error('Error details:', error)
+    console.error('Login error:', error)
     return NextResponse.json(
       { message: 'Lỗi đăng nhập', error: error.message },
       { status: 500 }
