@@ -13,8 +13,10 @@ export default function LoginPage() {
   const router = useRouter()
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    e.stopPropagation()
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
+    
     setIsLoading(true)
     setError('')
 
@@ -28,14 +30,17 @@ export default function LoginPage() {
           email: email.trim(), 
           password: password.trim() 
         }),
+        cache: 'no-store'
       })
 
       const data = await res.json()
+      console.log('Login response:', data)
 
       if (!res.ok) {
         throw new Error(data.message || 'Đăng nhập thất bại')
       }
 
+      await new Promise(resolve => setTimeout(resolve, 500))
       router.push('/admin')
     } catch (error) {
       console.error('Login error:', error)
