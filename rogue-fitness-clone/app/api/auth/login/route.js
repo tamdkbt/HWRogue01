@@ -2,6 +2,14 @@ import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 
+// Thêm đoạn code test này để tạo hash mới
+const testPassword = "admin";
+bcrypt.hash(testPassword, 10).then(hash => {
+  console.log('=== TEST HASH ===');
+  console.log('Password:', testPassword);
+  console.log('Generated hash:', hash);
+});
+
 export async function POST(request) {
   try {
     const { email, password } = await request.json()
@@ -24,11 +32,16 @@ export async function POST(request) {
     console.log('Raw password from input:', password)
     console.log('Stored hash from DB:', user.password)
     
+    // THÊM đoạn code test này để tạo hash mới
+    const testPassword = "admin";
+    const testHash = await bcrypt.hash(testPassword, 10);
+    console.log('Test hash for "admin":', testHash);
+    
+    // So sánh password
     const passwordMatch = await bcrypt.compare(password, user.password)
     console.log('Password match result:', passwordMatch)
 
     if (!passwordMatch) {
-      console.log('Password comparison failed')
       return NextResponse.json(
         { message: 'Email hoặc mật khẩu không đúng' },
         { status: 401 }
@@ -36,6 +49,11 @@ export async function POST(request) {
     }
 
     console.log('Password comparison successful')
+
+    console.log('Password type:', typeof password);
+    console.log('Password length:', password.length);
+    console.log('Hash type:', typeof user.password);
+    console.log('Hash length:', user.password.length);
 
     const response = NextResponse.json({
       user: {
