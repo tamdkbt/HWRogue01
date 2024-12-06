@@ -65,7 +65,11 @@ const Header = () => {
           <div className="flex justify-between items-center h-28">
             <Link 
               href="/" 
-              className="relative w-56 h-24 transform hover:scale-110 transition-transform duration-300 ease-in-out"
+              className="relative w-[180px] md:w-[220px] lg:w-[240px] h-20 md:h-24 lg:h-28 
+                transform hover:scale-110 transition-transform duration-300 ease-in-out
+                group logo-container"
+              aria-label="AURA - Trang chủ"
+              title="Về trang chủ AURA"
               onMouseEnter={(e) => {
                 e.currentTarget.style.filter = "brightness(1.2)";
               }}
@@ -77,8 +81,14 @@ const Header = () => {
                 src="/images/admin-logo.png"
                 alt="AURA Logo"
                 fill
-                className="object-contain drop-shadow-lg hover:drop-shadow-2xl"
-                priority
+                className="object-contain drop-shadow-lg group-hover:drop-shadow-2xl
+                  transition-all duration-300 logo-glow logo-entrance"
+                priority={true}
+                quality={90}
+                loading="eager"
+                sizes="(max-width: 768px) 180px,
+                       (max-width: 1024px) 220px,
+                       240px"
               />
             </Link>
 
@@ -179,7 +189,7 @@ const Header = () => {
                       </svg>
                       <span className="absolute -top-2 -right-2 bg-[#8B0000] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                     </div>
-                    <span className="text-xs mt-1">Giỏ Hàng</span>
+                    <span className="text-xs mt-1">Gi Hàng</span>
                   </button>
 
                   {/* Dropdown Menu */}

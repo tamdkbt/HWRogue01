@@ -10,6 +10,13 @@ const inter = Inter({ subsets: ['latin', 'vietnamese'] })
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link 
+          rel="preload" 
+          href="/images/admin-logo.png" 
+          as="image"
+        />
+      </head>
       <body>
         <Providers>
           <Header />

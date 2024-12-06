@@ -368,3 +368,46 @@ canvas {
 .animate-bannerSlide:hover {
   animation-play-state: paused;
 }
+
+/* Logo glow effect */
+.logo-glow {
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.3));
+  transition: filter 0.3s ease;
+}
+
+.group:hover .logo-glow {
+  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.5));
+}
+
+@keyframes logoEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo-entrance {
+  animation: logoEntrance 0.8s ease-out forwards;
+}
+
+/* Logo background contrast effect */
+.logo-container::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(
+    circle at center,
+    rgba(74, 74, 74, 0.1),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo-container:hover::before {
+  opacity: 1;
+}
