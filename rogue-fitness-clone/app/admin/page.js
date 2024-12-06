@@ -2,7 +2,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import SpecsManager from '@/components/SpecsManager'
-import ImageManager from '@/components/ImageManager'
+import dynamic from 'next/dynamic';
+
+const ImageManager = dynamic(() => import('@/components/ImageManager'), {
+  ssr: false,
+  loading: () => (
+    <div className="animate-pulse bg-gray-300 h-32 w-32 rounded-lg"></div>
+  ),
+});
 
 // Thêm mảng các badge phổ biến
 const commonBadges = [
@@ -143,16 +150,61 @@ export default function AdminPage() {
     }
   };
 
+  // Add error state
+  const [error, setError] = useState(null);
+
+  // Modify useEffect
   useEffect(() => {
-    fetchProducts()
-  }, [])
+    const loadData = async () => {
+      try {
+        await fetchProducts();
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+    loadData();
+  }, []);
+
+  // Handle server-side rendering
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-[#6E6E6E] flex items-center justify-center">
+        <div className="text-white text-xl">Error: {error}</div>
+      </div>
+    );
+  }
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#6E6E6E] flex items-center justify-center">
+        <div className="text-white text-xl">Đang tải...</div>
+      </div>
+    );
+  }
 
   const fetchProducts = async () => {
-    const res = await fetch('/api/products')
-    const data = await res.json()
-    setProducts(data)
-    setIsLoading(false)
-  }
+    try {
+      setIsLoading(true);
+      const res = await fetch('/api/products');
+      if (!res.ok) {
+        throw new Error('Failed to fetch products');
+      }
+      const data = await res.json();
+      setProducts(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      // Set empty array instead of crashing
+      setProducts([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleEdit = (product) => {
     setFormData({
@@ -303,19 +355,13 @@ export default function AdminPage() {
       if (directory.startsWith('/')) {
         directory = directory.slice(1);
       }
-      // Lấy thư mục cha nếu đã có file
-      if (directory.includes('/')) {
-        directory = directory.split('/').slice(0, -1).join('/');
-      }
       
-      console.log('Uploading to directory:', directory);
       formDataUpload.append('directory', directory);
 
       const response = await fetch('/api/upload', {
         method: 'POST',
         body: formDataUpload,
       });
-
       const data = await response.json();
       
       if (!response.ok) {
@@ -339,15 +385,6 @@ export default function AdminPage() {
       }
     }
   };
-
-  // Thêm error boundary
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#6E6E6E] flex items-center justify-center">
-        <div className="text-white text-xl">Đang tải...</div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[#6E6E6E]">
@@ -667,3 +704,4 @@ export default function AdminPage() {
     </div>
   )
 }
+
