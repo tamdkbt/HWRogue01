@@ -13,8 +13,9 @@ export default function LoginPage() {
   const router = useRouter()
 
   const handleSubmit = async (e) => {
-    if (e && e.preventDefault) {
-      e.preventDefault();
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
     }
     
     setIsLoading(true)
@@ -26,11 +27,10 @@ export default function LoginPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-          email: email.trim(), 
-          password: password.trim() 
-        }),
-        cache: 'no-store'
+        body: JSON.stringify({
+          email: email.trim(),
+          password: password.trim()
+        })
       })
 
       const data = await res.json()
@@ -40,7 +40,6 @@ export default function LoginPage() {
         throw new Error(data.message || 'Đăng nhập thất bại')
       }
 
-      await new Promise(resolve => setTimeout(resolve, 500))
       router.push('/admin')
     } catch (error) {
       console.error('Login error:', error)
@@ -77,7 +76,7 @@ export default function LoginPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6" style={{ touchAction: 'none' }}>
             <div className="space-y-2">
               <label className="block text-base font-medium text-[#A9A9A9] mb-1.5">
                 Email đăng nhập
