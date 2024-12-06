@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import SpecsManager from '@/components/SpecsManager'
+import ImageManager from '@/components/ImageManager'
 
 // Thêm mảng các badge phổ biến
 const commonBadges = [
@@ -76,6 +77,15 @@ const flattenedImageDirs = Object.entries(imageDirectories).reduce((acc, [main, 
 
 export default function AdminPage() {
   const [products, setProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [categoryFilter, setCategoryFilter] = useState('')
+  const [showImageModal, setShowImageModal] = useState(false)
+  const [selectedImage, setSelectedImage] = useState('')
+  const [isUploading, setIsUploading] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+  const fileInputRef = useRef(null)
+
   const [formData, setFormData] = useState({
     id: '',
     name: '',
@@ -96,13 +106,42 @@ export default function AdminPage() {
       monsterLiteCompatible: ''
     }
   })
-  const [searchTerm, setSearchTerm] = useState('')
-  const [categoryFilter, setCategoryFilter] = useState('')
-  const [showImageModal, setShowImageModal] = useState(false)
-  const [selectedImage, setSelectedImage] = useState('')
-  const [isUploading, setIsUploading] = useState(false)
-  const [isDeleting, setIsDeleting] = useState(false);
-  const fileInputRef = useRef(null)
+
+  const handleDeleteImage = async () => {
+    if (!formData.image || !window.confirm('Bạn có chắc chắn muốn xóa ảnh này?')) {
+      return;
+    }
+
+    try {
+      setIsDeleting(true);
+      const response = await fetch('/api/delete-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ imagePath: formData.image }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Xóa ảnh thất bại');
+      }
+
+      setFormData(prev => ({
+        ...prev,
+        image: '',
+        imageName: ''
+      }));
+
+      alert('Xóa ảnh thành công!');
+    } catch (error) {
+      console.error('Delete image error:', error);
+      alert(`Lỗi khi xóa ảnh: ${error.message}`);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   useEffect(() => {
     fetchProducts()
@@ -112,6 +151,7 @@ export default function AdminPage() {
     const res = await fetch('/api/products')
     const data = await res.json()
     setProducts(data)
+    setIsLoading(false)
   }
 
   const handleEdit = (product) => {
@@ -300,49 +340,14 @@ export default function AdminPage() {
     }
   };
 
-  const handleDeleteImage = async () => {
-    if (!formData.image || !window.confirm('Bạn có chắc chắn muốn xóa ảnh này?')) {
-      return;
-    }
-
-    try {
-      setIsDeleting(true);
-      
-      // Chuẩn hóa đường dẫn ảnh
-      const imagePath = formData.image.startsWith('/') ? formData.image : `/${formData.image}`;
-      
-      console.log('Deleting image:', imagePath); // Debug log
-
-      const response = await fetch('/api/delete-image', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ imagePath }),
-      });
-
-      const data = await response.json();
-      console.log('Delete response:', data); // Debug log
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Xóa ảnh thất bại');
-      }
-
-      // Cập nhật state sau khi xóa thành công
-      setFormData(prev => ({
-        ...prev,
-        image: '',
-        imageName: ''
-      }));
-
-      alert('Xóa ảnh thành công!');
-    } catch (error) {
-      console.error('Delete image error:', error);
-      alert(`Lỗi khi xóa ảnh: ${error.message}`);
-    } finally {
-      setIsDeleting(false);
-    }
-  };
+  // Thêm error boundary
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#6E6E6E] flex items-center justify-center">
+        <div className="text-white text-xl">Đang tải...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#6E6E6E]">
