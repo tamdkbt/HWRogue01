@@ -82,16 +82,28 @@ const flattenedImageDirs = Object.entries(imageDirectories).reduce((acc, [main, 
   return acc;
 }, []);
 
+const useIsMounted = () => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return mounted;
+};
+
 export default function AdminPage() {
-  const [products, setProducts] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [categoryFilter, setCategoryFilter] = useState('')
-  const [showImageModal, setShowImageModal] = useState(false)
-  const [selectedImage, setSelectedImage] = useState('')
-  const [isUploading, setIsUploading] = useState(false)
-  const [isDeleting, setIsDeleting] = useState(false)
-  const fileInputRef = useRef(null)
+  const isMounted = useIsMounted();
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [showImageModal, setShowImageModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const fileInputRef = useRef(null);
+  const [error, setError] = useState(null);
 
   const [formData, setFormData] = useState({
     id: '',
@@ -112,7 +124,7 @@ export default function AdminPage() {
       otherSpecs: '',
       monsterLiteCompatible: ''
     }
-  })
+  });
 
   const handleDeleteImage = async () => {
     if (!formData.image || !window.confirm('Bạn có chắc chắn muốn xóa ảnh này?')) {
@@ -150,25 +162,36 @@ export default function AdminPage() {
     }
   };
 
-  // Add error state
-  const [error, setError] = useState(null);
-
-  // Modify useEffect
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        await fetchProducts();
-      } catch (err) {
-        setError(err.message);
+  const fetchProducts = async () => {
+    try {
+      setIsLoading(true);
+      const res = await fetch('/api/products');
+      if (!res.ok) {
+        throw new Error('Failed to fetch products');
       }
-    };
-    loadData();
-  }, []);
+      const data = await res.json();
+      setProducts(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      setProducts([]);
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  // Handle server-side rendering
-  if (typeof window === 'undefined') {
-    return null;
-  }
+  useEffect(() => {
+    if (isMounted) {
+      const loadData = async () => {
+        try {
+          await fetchProducts();
+        } catch (err) {
+          setError(err.message);
+        }
+      };
+      loadData();
+    }
+  }, [isMounted]);
 
   // Show error state
   if (error) {
@@ -187,24 +210,6 @@ export default function AdminPage() {
       </div>
     );
   }
-
-  const fetchProducts = async () => {
-    try {
-      setIsLoading(true);
-      const res = await fetch('/api/products');
-      if (!res.ok) {
-        throw new Error('Failed to fetch products');
-      }
-      const data = await res.json();
-      setProducts(data);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      // Set empty array instead of crashing
-      setProducts([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleEdit = (product) => {
     setFormData({
@@ -385,6 +390,10 @@ export default function AdminPage() {
       }
     }
   };
+
+  if (!isMounted) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-[#6E6E6E]">
