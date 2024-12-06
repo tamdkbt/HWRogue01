@@ -189,7 +189,7 @@ const Header = () => {
                       </svg>
                       <span className="absolute -top-2 -right-2 bg-[#8B0000] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
                     </div>
-                    <span className="text-xs mt-1">Gi Hàng</span>
+                    <span className="text-xs mt-1">Giỏ Hàng</span>
                   </button>
 
                   {/* Dropdown Menu */}
