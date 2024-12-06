@@ -21,15 +21,21 @@ export async function POST(request) {
       )
     }
 
+    console.log('Raw password from input:', password)
+    console.log('Stored hash from DB:', user.password)
+    
     const passwordMatch = await bcrypt.compare(password, user.password)
-    console.log('Password match:', passwordMatch)
+    console.log('Password match result:', passwordMatch)
 
     if (!passwordMatch) {
+      console.log('Password comparison failed')
       return NextResponse.json(
         { message: 'Email hoặc mật khẩu không đúng' },
         { status: 401 }
       )
     }
+
+    console.log('Password comparison successful')
 
     const response = NextResponse.json({
       user: {
